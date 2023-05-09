@@ -22,6 +22,7 @@ class QuestionController extends Controller
     public function submit(Question $request)
     {
         try{
+            $answers = implode(",",$request->answer);
             $data = array(
                 'question_name' => $request->questionname,  
                 'question_type' => $request->question_type,
@@ -29,7 +30,7 @@ class QuestionController extends Controller
                 'choice_2'      => $request->choice_2,
                 'choice_3'      => $request->choice_3,
                 'choice_4'      => $request->choice_4,
-                'answer'        => $request->answer,
+                'answer'        => $answers,
             );
             $questions = Questions::create($data);
            
@@ -53,6 +54,7 @@ class QuestionController extends Controller
     {
         try{
             $user = Questions::find($request->id);
+            $answers = implode(",",$request->answer);
             $data = array(
                 'question_name' => $request->questionname,  
                 'question_type' => $request->question_type,
@@ -60,7 +62,7 @@ class QuestionController extends Controller
                 'choice_2'      => $request->choice_2,
                 'choice_3'      => $request->choice_3,
                 'choice_4'      => $request->choice_4,
-                'answer'        => $request->answer,
+                'answer'        => $answers,
             );
             $user->update($data);
             if(!is_null($user)) {

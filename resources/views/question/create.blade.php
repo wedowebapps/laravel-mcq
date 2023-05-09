@@ -42,10 +42,10 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Question Type<label class=text-danger>*</label></label>
                                         <div class="col-sm-10">
-                                            <select name="question_type" class="form-control">
+                                            <select name="question_type" id="question_type" class="form-control">
                                                 <option>Select Type</option>
-                                                <option>Single</option>
-                                                <option>Multiple</option>
+                                                <option value="single">Single</option>
+                                                <option value="multiple">Multiple</option>
                                             </select>
                                             @error('question_type')<span class="messages text-danger">{{ $message }}</span> @enderror
                                         </div>
@@ -69,7 +69,7 @@
                                     <div class="form-group row">
                                         <label class="col-sm-2 col-form-label">Correct answer<label class=text-danger>*</label></label>
                                         <div class="col-sm-10">
-                                            <select name="answer" class="form-control">
+                                            <select name="answer[]" id="answers" class="form-control">
                                                 <option>Select Right Answer</option>
                                                 <option value="choice_1">Choice 1</option>
                                                 <option value="choice_2">Choice 2</option>
@@ -94,4 +94,16 @@
         </div>
     </div>
 </div>
+@endsection
+@section('scripts')
+<script type="text/javascript">
+$( document ).ready(function() {
+    $(document).on('change', '#question_type', function(){
+        var type = $(this).val();
+        if(type == 'multiple'){
+            $("#answers").attr("multiple","multiple");
+        }
+    });
+});
+</script>
 @endsection
