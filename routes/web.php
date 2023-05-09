@@ -21,7 +21,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group(['prefix' => 'master'], function () {
+Route::group(['prefix' => 'master','middleware'=>['auth']], function () {
     // User Routes
     Route::get('/user', [App\Http\Controllers\Master\UserController::class, 'index'])->name('user.index');
     Route::match(['get','post'], '/user/logout',[App\Http\Controllers\Master\UserController::class, 'logout'])->name('user.logout');

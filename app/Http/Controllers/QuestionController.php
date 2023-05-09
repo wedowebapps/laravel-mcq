@@ -8,11 +8,6 @@ use Validator;
 
 class QuestionController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
     public function index()
     {
         $questions = Questions::all();
