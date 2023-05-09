@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Questions;
-use Validator;
+use App\Http\Requests\Question;
 
 class QuestionController extends Controller
 {
@@ -19,21 +19,8 @@ class QuestionController extends Controller
         return view('question.create');
     }
 
-    public function submit(Request $request)
+    public function submit(Question $request)
     {
-        $validator = Validator::make($request->all(), [ 
-            'questionname'       => 'required',
-            'question_type'      => 'required',
-            'choice_1'          => 'required',
-            'choice_2'          => 'required',
-            'choice_3'          => 'required',
-            'choice_4'          => 'required',
-            'answer'             => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());  
-        }
-
         try{
             $data = array(
                 'question_name' => $request->questionname,  
@@ -62,21 +49,8 @@ class QuestionController extends Controller
     }
 
 
-    public function update(Request $request) 
+    public function update(Question $request) 
     {
-        $validator = Validator::make($request->all(), [ 
-            'questionname'       => 'required',
-            'question_type'      => 'required',
-            'choice_1'          => 'required',
-            'choice_2'          => 'required',
-            'choice_3'          => 'required',
-            'choice_4'          => 'required',
-            'answer'             => 'required',
-        ]);
-        if ($validator->fails()) {
-            return redirect()->back()->withErrors($validator->errors());  
-        }
-        
         try{
             $user = Questions::find($request->id);
             $data = array(
